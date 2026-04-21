@@ -1,12 +1,30 @@
-## Hi there 👋
+# ⚡ Copperline AI
 
-<!--
+> **AI-forward software consulting**  
+> Building fast, scalable, and intelligent systems for modern teams.
 
-**Here are some ideas to get you started:**
+---
 
-🙋‍♀️ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
--->
+## 🧠 What We Do
+
+Copperline AI specializes in designing and building high-impact software systems powered by modern AI, cloud-native architecture, and clean developer experience.
+
+- 🤖 AI-integrated applications (LLMs, agents, workflows)
+- ☁️ Cloud architecture (AWS, Kubernetes, serverless)
+- ⚙️ API design & backend systems (NestJS, GraphQL, REST)
+- 🔍 Observability, logging, and performance optimization
+- 🚀 Rapid prototyping → production-grade systems
+
+---
+
+## 🧰 Core Stack
+
+```ts
+const stack = {
+  frontend: ["Next.js", "React", "Tailwind"],
+  backend: ["Node.js", "NestJS", "GraphQL"],
+  infra: ["AWS", "EKS", "Docker", "Terraform"],
+  data: ["Postgres", "Redis", "Directus"],
+  ai: ["OpenAI", "Anthropic", "Vector DBs"],
+  tooling: ["GitHub Actions", "CI/CD", "TypeScript"]
+}
