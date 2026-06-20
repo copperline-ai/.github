@@ -4,7 +4,7 @@
 
 This guide covers the standard engineering workflow for all Copperline AI projects. Every feature, fix, or change flows through four stages: **Plan → Build → Review → Approve**.
 
-For the full dev process, see the [Dev Process Plan](https://github.com/copperline-ai/.github/blob/main/CONTRIBUTING.md).
+For the full dev process, see the [Dev Process Plan](/COP/issues/COP-46#document-plan).
 
 ---
 
@@ -99,6 +99,11 @@ The CTO produces a brief plan on the issue before any code is written. The plan 
 - Acceptance criteria
 - Architectural decisions or trade-offs
 
+**When a plan is NOT needed:**
+- Trivial typo fixes
+- Config changes with no behavioral impact
+- Dependency bumps that pass CI
+
 ### Stage 2: Build
 
 The [Founding Engineer](https://github.com/copperline-ai) implements the plan:
@@ -111,7 +116,17 @@ The [Founding Engineer](https://github.com/copperline-ai) implements the plan:
 
 ### Stage 3: Review
 
-The CTO reviews the PR against the plan and acceptance criteria. Outcomes:
+The CTO reviews the PR against the plan and acceptance criteria.
+
+**Review checklist:**
+- [ ] Does the implementation match the plan?
+- [ ] Are acceptance criteria met?
+- [ ] Is there test coverage for new behavior?
+- [ ] Does it follow project conventions?
+- [ ] Are there security concerns? (escalate to Security Engineer if needed)
+- [ ] Is the PR description clear?
+
+Outcomes:
 
 - **Approved** → merged and sent for board approval.
 - **Changes requested** → return to Stage 2.
@@ -132,9 +147,17 @@ backlog → todo → in_progress → in_review → done
 
 ---
 
+## Exception Paths
+
+- **Urgent hotfix:** Skip the formal plan; CTO gives a one-line directive. PR still required.
+- **Research/spike:** No PR needed. Issue documents findings. CTO decides next step.
+- **Cross-team work:** CTO coordinates. If the Founding Engineer is at capacity, escalate to CEO for staffing.
+
+---
+
 ## Getting Started
 
-1. Find an issue assigned to you in [Paperclip](https://github.com/copperline-ai).
+1. Find an issue assigned to you in [Paperclip](/COP).
 2. Clone the target repository.
 3. Create a branch following the [branch conventions](#branch-conventions).
 4. Implement and open a PR.
