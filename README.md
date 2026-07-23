@@ -1,9 +1,9 @@
 # User Endpoints Challenge
 
-Full-stack CRUD app for the "User endpoints" coding challenge: an Express +
-TypeScript API with users stored in a NoSQL database (Firebase Realtime
-Database, with an automatic in-memory fallback), geo-enriched via
-OpenWeatherMap, plus a ReactJS front-end.
+Full-stack CRUD app for the "User endpoints" coding challenge: an Express API
+(plain Node.js, based on the provided starter `package.json`) with users stored
+in a NoSQL database (Firebase Realtime Database, with an automatic in-memory
+fallback), geo-enriched via OpenWeatherMap, plus a ReactJS front-end.
 
 ## What it does
 
@@ -23,13 +23,13 @@ OpenWeatherMap, plus a ReactJS front-end.
 
 ## Quick start
 
-Requires Node 18+ (built on Node 22). Two terminals:
+Requires Node 18+ (built on Node 22; the API uses the built-in `fetch`). Two
+terminals:
 
 ```bash
-# Terminal 1 — API on :8080
-cd server
+# Terminal 1 — API on :8080 (repo root)
 npm install
-npm run dev
+npm start
 
 # Terminal 2 — React app on :5173 (proxies /api to :8080)
 cd client
@@ -56,7 +56,7 @@ zip codes, 404 for missing users, 502 when an upstream API is unavailable.
 
 ## Configuration
 
-Copy `server/.env.example` to `server/.env` and adjust as needed:
+Copy `.env.example` to `.env` and adjust as needed:
 
 | Variable | Default | Purpose |
 |---|---|---|
@@ -66,19 +66,19 @@ Copy `server/.env.example` to `server/.env` and adjust as needed:
 | `FIREBASE_SERVICE_ACCOUNT` | *(unset)* | Service-account JSON as a string; alternatively set `GOOGLE_APPLICATION_CREDENTIALS` to a key-file path |
 
 On startup the server logs which store is active (`firebase` or `in-memory`).
-Both implement the same `UserRepository` interface
-(`server/src/repositories/`), so the rest of the app is storage-agnostic.
+Both stores expose the same repository interface (`src/repositories/`), so the
+rest of the app is storage-agnostic.
 
 ## Project layout
 
 ```
-server/src/
-  index.ts               app bootstrap + error handling
-  validation.ts          zod schemas for create/update payloads
-  routes/users.ts        CRUD routes
-  routes/scoreboard.ts   ESPN scoreboard proxy
-  services/geo.ts        zip -> lat/lon/timezone via OpenWeatherMap
-  services/espn.ts       ESPN scoreboard client (60s cache)
+src/
+  index.js               app bootstrap + error handling
+  validation.js          create/update payload validation
+  routes/users.js        CRUD routes
+  routes/scoreboard.js   ESPN scoreboard proxy
+  services/geo.js        zip -> lat/lon/timezone via OpenWeatherMap
+  services/espn.js       ESPN scoreboard client (60s cache)
   repositories/          Firebase + in-memory stores behind one interface
 client/src/
   App.tsx                layout and state

@@ -1,16 +1,15 @@
-import { Router } from "express";
-import { SUPPORTED_LEAGUES, fetchScoreboard } from "../services/espn";
+const { Router } = require("express");
+const { SUPPORTED_LEAGUES, fetchScoreboard } = require("../services/espn");
 
-export function scoreboardRouter(): Router {
+function scoreboardRouter() {
   const router = Router();
 
   router.get("/", (req, res, next) => {
-    const league = String(req.query.league ?? "").toLowerCase();
+    const league = String(req.query.league || "").toLowerCase();
     if (!SUPPORTED_LEAGUES[league]) {
-      res.status(400).json({
+      return res.status(400).json({
         error: `league must be one of: ${Object.keys(SUPPORTED_LEAGUES).join(", ")}`,
       });
-      return;
     }
     fetchScoreboard(league)
       .then((games) => res.json({ league, games }))
@@ -19,3 +18,5 @@ export function scoreboardRouter(): Router {
 
   return router;
 }
+
+module.exports = { scoreboardRouter };

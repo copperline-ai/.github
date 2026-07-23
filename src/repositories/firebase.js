@@ -1,12 +1,9 @@
-import { applicationDefault, cert, initializeApp } from "firebase-admin/app";
-import { Database, getDatabase } from "firebase-admin/database";
-import { NewUser, User, UserPatch, UserRepository } from "./types";
+const { applicationDefault, cert, initializeApp } = require("firebase-admin/app");
+const { getDatabase } = require("firebase-admin/database");
 
-export class FirebaseUserRepository implements UserRepository {
-  readonly backend = "firebase";
-  private db: Database;
-
+class FirebaseUserRepository {
   constructor() {
+    this.backend = "firebase";
     const databaseURL = process.env.FIREBASE_DATABASE_URL;
     if (!databaseURL) {
       throw new Error("FIREBASE_DATABASE_URL is not set");
@@ -19,39 +16,41 @@ export class FirebaseUserRepository implements UserRepository {
     this.db = getDatabase(app);
   }
 
-  private ref(id?: string) {
+  ref(id) {
     return id ? this.db.ref(`users/${id}`) : this.db.ref("users");
   }
 
-  async list(): Promise<User[]> {
+  async list() {
     const snapshot = await this.ref().get();
-    const value = snapshot.val() as Record<string, User> | null;
+    const value = snapshot.val();
     return value ? Object.values(value) : [];
   }
 
-  async get(id: string): Promise<User | null> {
+  async get(id) {
     const snapshot = await this.ref(id).get();
-    return (snapshot.val() as User | null) ?? null;
+    return snapshot.val() || null;
   }
 
-  async create(data: NewUser): Promise<User> {
+  async create(data) {
     const ref = this.ref().push();
-    const user: User = { id: ref.key as string, ...data };
+    const user = { id: ref.key, ...data };
     await ref.set(user);
     return user;
   }
 
-  async update(id: string, patch: UserPatch): Promise<User | null> {
+  async update(id, patch) {
     const existing = await this.get(id);
     if (!existing) return null;
     await this.ref(id).update(patch);
     return { ...existing, ...patch };
   }
 
-  async delete(id: string): Promise<boolean> {
+  async delete(id) {
     const existing = await this.get(id);
     if (!existing) return false;
     await this.ref(id).remove();
     return true;
   }
 }
+
+module.exports = { FirebaseUserRepository };
